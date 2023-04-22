@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../const";
 import { useState, useEffect } from "react";
+import AllRestaurantsCard from "../components/AllRestaurantCard";
 
 const AllRestaurants = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
@@ -23,12 +24,7 @@ const AllRestaurants = () => {
       <div className="restaurant-cards">
         {allRestaurants.map((restaurant) => (
           <div key={restaurant.id}>
-            <h2>{restaurant.name}</h2>
-            <p>{restaurant.description}</p>
-            <p>{restaurant.address}</p>
-            <p>
-              <a href={restaurant.website}>{restaurant.website}</a>
-            </p>
+            <AllRestaurantsCard restaurantData={restaurant} />
           </div>
         ))}
       </div>
