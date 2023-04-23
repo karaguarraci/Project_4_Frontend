@@ -1,5 +1,89 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import login_background_image from "../assets/JackRussel.jpg";
+import { API_URL } from "../consts.js";
+
 const Login = () => {
-  return <h1>You have made it to the Login page!</h1>;
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [showError, setShowError] = useState(false);
+  const navigate = useNavigate();
+
+  const onChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(`${API_URL}/auth/login/`, formData);
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId);
+      navigate("/");
+    } catch (err) {
+      setShowError(true);
+    }
+  };
+
+  return (
+    <div className="form_page">
+      <img
+        src={login_background_image}
+        alt="Background image"
+        className="form_background_image"
+      />
+
+      <form onSubmit={onSubmit} className="sl_form login_form">
+        <h3 className="form_header login">Login</h3>
+
+        <input
+          className="input_text"
+          type="email"
+          value={formData.email}
+          name="email"
+          onChange={onChange}
+          placeholder="Email"
+        />
+        <input
+          className="input_text"
+          type="password"
+          value={formData.password}
+          name="password"
+          onChange={onChange}
+          placeholder="Password"
+        />
+        <button type="submit">Login</button>
+        <p onClick={() => navigate("/register")}>Don't have an account? </p>
+      </form>
+      {showError && (
+        <div className="container p-5 lerror">
+          <div
+            className="alert alert-danger alert-dismissible fade show loginerror"
+            role="alert"
+          >
+            <strong>Something went wrong...</strong>
+            <button
+              type="button"
+              className="close lclosebutton"
+              data-dismiss="alert"
+              aria-label="Close"
+              onClick={() => setShowError(false)}
+            >
+              <span aria-hidden="True">&times;</span>
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Login;

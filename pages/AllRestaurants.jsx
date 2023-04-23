@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../const";
+import { API_URL } from "../consts";
 import { useState, useEffect } from "react";
 import AllRestaurantsCard from "../components/AllRestaurantCard";
 

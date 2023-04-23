@@ -1,8 +1,21 @@
-import { Link } from "react-router-dom";
-import { loggedOutNavigationLinks } from "../const";
+import { Link, useNavigate } from "react-router-dom";
+import { loggedOutNavigationLinks, loggedInNavigationLinks } from "../consts";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem("token") ? true : false);
+  }, []);
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -25,11 +38,28 @@ const Header = () => {
           </Nav>
           <Nav className="login_nav">
             <ul>
-              {loggedOutNavigationLinks.map((link, idx) => (
-                <Link key={idx} to={link.slug} className="header_link">
-                  <li>{link.title}</li>
-                </Link>
-              ))}
+              {isLoggedIn
+                ? loggedInNavigationLinks.map((link, idx) => (
+                    <Nav.Link
+                      key={idx}
+                      as={Link}
+                      to={link.slug}
+                      onClick={link.title === "Sign Out" && logOut}
+                      className="header_link"
+                    >
+                      <li>{link.title}</li>
+                    </Nav.Link>
+                  ))
+                : loggedOutNavigationLinks.map((link, idx) => (
+                    <Nav.Link
+                      key={idx}
+                      as={Link}
+                      to={link.slug}
+                      className="header_link"
+                    >
+                      <li>{link.title}</li>
+                    </Nav.Link>
+                  ))}
             </ul>
           </Nav>
         </Navbar.Collapse>

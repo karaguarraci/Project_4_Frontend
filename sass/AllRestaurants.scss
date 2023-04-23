@@ -3,4 +3,63 @@
   flex-direction: row;
   flex-wrap: wrap;
   list-style: none;
+  justify-content: space-evenly;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.restaurant-card {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: grid;
+  width: 400px;
+  justify-content: space-evenly;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.card-img-top {
+  height: 212px;
+
+  @media (max-width: 768px) {
+    height: 150px;
+  }
+}
+
+.card-text {
+  margin-bottom: 60px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+}
+
+.restaurant-card {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: grid;
+  height: 400px;
+}
+
+.card-img-top {
+  height: 212px;
+}
+
+.card-text {
+  margin-bottom: 60px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body .btn {
+  margin-top: auto;
 }
