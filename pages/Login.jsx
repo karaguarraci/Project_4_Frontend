@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import login_background_image from "../assets/JackRussel.jpg";
 import { API_URL } from "../consts.js";
+import { Form, Button } from "react-bootstrap";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -41,28 +42,35 @@ const Login = () => {
         className="form_background_image"
       />
 
-      <form onSubmit={onSubmit} className="sl_form login_form">
+      <Form onSubmit={onSubmit} className="sl_form login_form">
         <h3 className="form_header login">Login</h3>
-
-        <input
-          className="input_text"
-          type="email"
-          value={formData.email}
-          name="email"
-          onChange={onChange}
-          placeholder="Email"
-        />
-        <input
-          className="input_text"
-          type="password"
-          value={formData.password}
-          name="password"
-          onChange={onChange}
-          placeholder="Password"
-        />
-        <button type="submit">Login</button>
+        <Form.Group controlId="email">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            className="input_text"
+            type="email"
+            value={formData.email}
+            name="email"
+            onChange={onChange}
+            placeholder="Email"
+          />
+        </Form.Group>
+        <Form.Group controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            className="input_text"
+            type="password"
+            value={formData.password}
+            name="password"
+            onChange={onChange}
+            placeholder="Password"
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Login
+        </Button>
         <p onClick={() => navigate("/register")}>Don't have an account? </p>
-      </form>
+      </Form>
       {showError && (
         <div className="container p-5 lerror">
           <div

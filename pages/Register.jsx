@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import signup_background_image from "../assets/dog-face.jpg";
 import { API_URL } from "../consts.js";
+import { Form, Button, Container } from "react-bootstrap";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -41,59 +42,81 @@ const Register = () => {
         alt="Background image"
         className="form_background_image"
       />
-      <form className="sl_form bone-shape" onSubmit={onSubmit}>
-        <h3 className="form_header">Register</h3>
-        <input
-          className="input_text first_input"
-          type="text"
-          value={formData.username}
-          placeholder="Username"
-          name="username"
-          onChange={onChange}
-        ></input>
-        <input
-          className="input_text"
-          type="email"
-          value={formData.email}
-          placeholder="Email"
-          name="email"
-          onChange={onChange}
-        ></input>
-        <input
-          className="input_text"
-          type="text"
-          value={formData.first_name}
-          placeholder="First Name"
-          name="first_name"
-          onChange={onChange}
-        ></input>
-        <input
-          className="input_text"
-          type="text"
-          value={formData.last_name}
-          placeholder="Surname"
-          name="last_name"
-          onChange={onChange}
-        ></input>
-        <input
-          className="input_text"
-          type="password"
-          value={formData.password}
-          placeholder="Password"
-          name="password"
-          onChange={onChange}
-        ></input>
-        <input
-          className="input_text"
-          type="password"
-          value={formData.password_confirmation}
-          placeholder="Confirm Password"
-          name="password_confirmation"
-          onChange={onChange}
-        ></input>
-        <button type="submit">Sign up</button>
-        <p onClick={() => navigate("/login")}>Already have an account? </p>
-      </form>
+      <Container className="form_container">
+        <Form className="sl_form bone-shape" onSubmit={onSubmit}>
+          <h3 className="form_header">Register</h3>
+          <Form.Group controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              className="input_text first_input"
+              type="text"
+              value={formData.username}
+              placeholder="Username"
+              name="username"
+              onChange={onChange}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="email">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              className="input_text"
+              type="email"
+              value={formData.email}
+              placeholder="Email"
+              name="email"
+              onChange={onChange}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="first_name">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              className="input_text"
+              type="text"
+              value={formData.first_name}
+              placeholder="First Name"
+              name="first_name"
+              onChange={onChange}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="last_name">
+            <Form.Label>Surname</Form.Label>
+            <Form.Control
+              className="input_text"
+              type="text"
+              value={formData.last_name}
+              placeholder="Surname"
+              name="last_name"
+              onChange={onChange}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              className="input_text"
+              type="password"
+              value={formData.password}
+              placeholder="Password"
+              name="password"
+              onChange={onChange}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              className="input_text"
+              type="password"
+              value={formData.password_confirmation}
+              placeholder="Confirm Password"
+              name="password_confirmation"
+              onChange={onChange}
+            ></Form.Control>
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Sign up
+          </Button>
+          <p onClick={() => navigate("/login")}>Already have an account? </p>
+        </Form>
+      </Container>
       {showError && (
         <div className="container p-5 serror">
           <div
