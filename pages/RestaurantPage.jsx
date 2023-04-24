@@ -13,15 +13,9 @@ const RestaurantPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`${API_URL}/restaurant/${id}/`);
+        const { data } = await axios.get(`${API_URL}/restaurants/${id}/`);
         console.log(data);
-        // const { reviews } = data;
-        // console.log(reviews);
-        // const { dog_friendly } = data;
-        // console.log(dog_friendly);
         setRestaurant(data);
-        // setReviews(reviews);
-        // setDogFriendly(dog_friendly);
       } catch (err) {
         console.log(err);
       }
@@ -30,7 +24,7 @@ const RestaurantPage = () => {
   }, [id]);
 
   return (
-    <div>
+    <div className="restaurant_card">
       <RestaurantCard restaurant={restaurant} />
       {/* <ReviewsCarousel reviews={reviews} /> */}
     </div>
