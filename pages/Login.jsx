@@ -2,8 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import login_background_image from "../assets/JackRussel.jpg";
+// import form_container_image from "../assets/DogBone.jpg";
 import { API_URL } from "../consts.js";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -36,60 +37,69 @@ const Login = () => {
 
   return (
     <div className="form_page">
-      <img
-        src={login_background_image}
-        alt="Background image"
-        className="form_background_image"
-      />
+      <div className="background_images">
+        <img
+          src={login_background_image}
+          alt="Background image"
+          className="form_background_image"
+        />
+        {/* <img
+          src={form_container_image}
+          alt="Login form image"
+          className="form_container_image"
+        /> */}
+      </div>
+      <Container className="form_container">
+        <Form onSubmit={onSubmit} className="sl_form login_form">
+          <h3 className="form_header login">Login</h3>
+          <Form.Group controlId="email">
+            {/* <Form.Label>Email address</Form.Label> */}
+            <Form.Control
+              className="input_text"
+              type="email"
+              value={formData.email}
+              name="email"
+              onChange={onChange}
+              placeholder="Email"
+            />
+          </Form.Group>
+          <Form.Group controlId="password">
+            {/* <Form.Label>Password</Form.Label> */}
+            <Form.Control
+              className="input_text"
+              type="password"
+              value={formData.password}
+              name="password"
+              onChange={onChange}
+              placeholder="Password"
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Login
+          </Button>
+          <p onClick={() => navigate("/register")}>Don't have an account? </p>
+        </Form>
 
-      <Form onSubmit={onSubmit} className="sl_form login_form">
-        <h3 className="form_header login">Login</h3>
-        <Form.Group controlId="email">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            className="input_text"
-            type="email"
-            value={formData.email}
-            name="email"
-            onChange={onChange}
-            placeholder="Email"
-          />
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            className="input_text"
-            type="password"
-            value={formData.password}
-            name="password"
-            onChange={onChange}
-            placeholder="Password"
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
-        <p onClick={() => navigate("/register")}>Don't have an account? </p>
-      </Form>
-      {showError && (
-        <div className="container p-5 lerror">
-          <div
-            className="alert alert-danger alert-dismissible fade show loginerror"
-            role="alert"
-          >
-            <strong>Something went wrong...</strong>
-            <button
-              type="button"
-              className="close lclosebutton"
-              data-dismiss="alert"
-              aria-label="Close"
-              onClick={() => setShowError(false)}
+        {showError && (
+          <div className="container p-5 lerror">
+            <div
+              className="alert alert-danger alert-dismissible fade show loginerror"
+              role="alert"
             >
-              <span aria-hidden="True">&times;</span>
-            </button>
+              <strong>Something went wrong...</strong>
+              <button
+                type="button"
+                className="close lclosebutton"
+                data-dismiss="alert"
+                aria-label="Close"
+                onClick={() => setShowError(false)}
+              >
+                <span aria-hidden="True">&times;</span>
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </Container>
     </div>
   );
 };

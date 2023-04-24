@@ -9,8 +9,6 @@ const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    first_name: "",
-    last_name: "",
     password: "",
     password_confirmation: "",
   });
@@ -24,11 +22,11 @@ const Register = () => {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Submit button clicked");
-    // console.log(`This is the form data ${JSON.stringify(formData)}`);
+    console.log(`This is the form data ${JSON.stringify(formData)}`);
     try {
       await axios.post(`${API_URL}/auth/register/`, formData);
       navigate("/login");
+      // console.log(formData);
     } catch (e) {
       console.log(e);
       setShowError(true);
@@ -43,12 +41,12 @@ const Register = () => {
         className="form_background_image"
       />
       <Container className="form_container">
-        <Form className="sl_form bone-shape" onSubmit={onSubmit}>
+        <Form className="sl_form" onSubmit={onSubmit}>
           <h3 className="form_header">Register</h3>
           <Form.Group controlId="username">
-            <Form.Label>Username</Form.Label>
+            {/* <Form.Label>Username</Form.Label> */}
             <Form.Control
-              className="input_text first_input"
+              className="input_text"
               type="text"
               value={formData.username}
               placeholder="Username"
@@ -57,7 +55,7 @@ const Register = () => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="email">
-            <Form.Label>Email address</Form.Label>
+            {/* <Form.Label>Email address</Form.Label> */}
             <Form.Control
               className="input_text"
               type="email"
@@ -67,30 +65,8 @@ const Register = () => {
               onChange={onChange}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="first_name">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control
-              className="input_text"
-              type="text"
-              value={formData.first_name}
-              placeholder="First Name"
-              name="first_name"
-              onChange={onChange}
-            ></Form.Control>
-          </Form.Group>
-          <Form.Group controlId="last_name">
-            <Form.Label>Surname</Form.Label>
-            <Form.Control
-              className="input_text"
-              type="text"
-              value={formData.last_name}
-              placeholder="Surname"
-              name="last_name"
-              onChange={onChange}
-            ></Form.Control>
-          </Form.Group>
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            {/* <Form.Label>Password</Form.Label> */}
             <Form.Control
               className="input_text"
               type="password"
@@ -101,7 +77,7 @@ const Register = () => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="password">
-            <Form.Label>Confirm Password</Form.Label>
+            {/* <Form.Label>Confirm Password</Form.Label> */}
             <Form.Control
               className="input_text"
               type="password"
@@ -116,26 +92,27 @@ const Register = () => {
           </Button>
           <p onClick={() => navigate("/login")}>Already have an account? </p>
         </Form>
-      </Container>
-      {showError && (
-        <div className="container p-5 serror">
-          <div
-            className="alert alert-danger alert-dismissible fade show signuperror"
-            role="alert"
-          >
-            <strong>Something went wrong...</strong>
-            <button
-              type="button"
-              className="close sclosebutton"
-              data-dismiss="alert"
-              aria-label="Close"
-              onClick={() => setShowError(false)}
+
+        {showError && (
+          <div className="container p-5 serror">
+            <div
+              className="alert alert-danger alert-dismissible fade show signuperror"
+              role="alert"
             >
-              <span aria-hidden="True">&times;</span>
-            </button>
+              <strong>Something went wrong...</strong>
+              <button
+                type="button"
+                className="close sclosebutton"
+                data-dismiss="alert"
+                aria-label="Close"
+                onClick={() => setShowError(false)}
+              >
+                <span aria-hidden="True">&times;</span>
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </Container>
     </div>
   );
 };

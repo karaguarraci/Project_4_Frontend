@@ -13,6 +13,7 @@ const Header = () => {
 
   const logOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     navigate("/");
   };
 
@@ -20,7 +21,7 @@ const Header = () => {
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to={"/"}>
-          AppName
+          Dine With Your Dog
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="all_nav">

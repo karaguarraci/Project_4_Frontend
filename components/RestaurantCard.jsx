@@ -6,7 +6,7 @@ const RestaurantCard = (restaurant) => {
   );
   console.log(`restaurantCard: ${restaurant}`);
   return (
-    restaurant && (
+    singleRestaurantInfo && (
       <div className="restaurant-card">
         <img src={restaurant.image} alt={restaurant.name} />
         <h2>{restaurant.name}</h2>
