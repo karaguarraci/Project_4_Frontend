@@ -13,6 +13,7 @@ const Register = () => {
     password_confirmation: "",
   });
   const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const onChange = (e) => {
     setFormData({
@@ -29,7 +30,11 @@ const Register = () => {
       // console.log(formData);
     } catch (e) {
       console.log(e);
+      console.log("catch block");
+      console.log(JSON.parse(e.request.response));
       setShowError(true);
+      console.log(Object.entries(JSON.parse(e.request.response)));
+      setErrorMessage(Object.entries(JSON.parse(e.request.response)));
       console.log(formData);
     }
   };
@@ -99,7 +104,13 @@ const Register = () => {
               className="alert alert-danger alert-dismissible fade show signuperror"
               role="alert"
             >
-              <strong>Something went wrong...</strong>
+              <strong>
+                {errorMessage.map((message) => (
+                  <p key={message[0]}>
+                    {message[0]} - {message[1][0]}
+                  </p>
+                ))}
+              </strong>
               <button
                 type="button"
                 className="close sclosebutton"

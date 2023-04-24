@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 
 const RestaurantCard = ({ restaurant }) => {
-  const [singleRestaurantInfo, setSingleRestaurantInfo] = useState(restaurant);
+  const [singleRestaurantInfo, setSingleRestaurantInfo] = useState(
+    restaurant ? restaurant : undefined
+  );
+
   console.log(`restaurantCardInfo: ${singleRestaurantInfo}`);
   console.log(restaurant);
   return (
