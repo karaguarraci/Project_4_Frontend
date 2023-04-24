@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import login_background_image from "../assets/JackRussel.jpg";
-// import form_container_image from "../assets/DogBone.jpg";
 import { API_URL } from "../consts.js";
 import { Form, Button, Container } from "react-bootstrap";
 
@@ -43,17 +42,11 @@ const Login = () => {
           alt="Background image"
           className="form_background_image"
         />
-        {/* <img
-          src={form_container_image}
-          alt="Login form image"
-          className="form_container_image"
-        /> */}
       </div>
       <Container className="form_container">
         <Form onSubmit={onSubmit} className="sl_form login_form">
           <h3 className="form_header login">Login</h3>
           <Form.Group controlId="email">
-            {/* <Form.Label>Email address</Form.Label> */}
             <Form.Control
               className="input_text"
               type="email"
@@ -64,7 +57,6 @@ const Login = () => {
             />
           </Form.Group>
           <Form.Group controlId="password">
-            {/* <Form.Label>Password</Form.Label> */}
             <Form.Control
               className="input_text"
               type="password"

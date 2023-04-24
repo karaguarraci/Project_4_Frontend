@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import signup_background_image from "../assets/dog-face.jpg";
 import { API_URL } from "../consts.js";
 import { Form, Button, Container } from "react-bootstrap";
+import Errors from "../components/Errors.jsx";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -30,7 +31,6 @@ const Register = () => {
       // console.log(formData);
     } catch (e) {
       console.log(e);
-      console.log("catch block");
       console.log(JSON.parse(e.request.response));
       setShowError(true);
       console.log(Object.entries(JSON.parse(e.request.response)));
@@ -49,7 +49,6 @@ const Register = () => {
         <Form className="sl_form" onSubmit={onSubmit}>
           <h3 className="form_header">Register</h3>
           <Form.Group controlId="username">
-            {/* <Form.Label>Username</Form.Label> */}
             <Form.Control
               className="input_text"
               type="text"
@@ -60,7 +59,6 @@ const Register = () => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="email">
-            {/* <Form.Label>Email address</Form.Label> */}
             <Form.Control
               className="input_text"
               type="email"
@@ -71,7 +69,6 @@ const Register = () => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="password">
-            {/* <Form.Label>Password</Form.Label> */}
             <Form.Control
               className="input_text"
               type="password"
@@ -82,7 +79,6 @@ const Register = () => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="password">
-            {/* <Form.Label>Confirm Password</Form.Label> */}
             <Form.Control
               className="input_text"
               type="password"
@@ -98,31 +94,7 @@ const Register = () => {
           <p onClick={() => navigate("/login")}>Already have an account? </p>
         </Form>
 
-        {showError && (
-          <div className="container p-5 serror">
-            <div
-              className="alert alert-danger alert-dismissible fade show signuperror"
-              role="alert"
-            >
-              <strong>
-                {errorMessage.map((message) => (
-                  <p key={message[0]}>
-                    {message[0]} - {message[1][0]}
-                  </p>
-                ))}
-              </strong>
-              <button
-                type="button"
-                className="close sclosebutton"
-                data-dismiss="alert"
-                aria-label="Close"
-                onClick={() => setShowError(false)}
-              >
-                <span aria-hidden="True">&times;</span>
-              </button>
-            </div>
-          </div>
-        )}
+        <Errors showError={showError} errorMessage={errorMessage} />
       </Container>
     </div>
   );
