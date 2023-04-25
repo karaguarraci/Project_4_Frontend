@@ -1,27 +1,34 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { loggedOutNavigationLinks, loggedInNavigationLinks } from "../consts";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
 
+  function checkLoggedIn() {
+    return localStorage.getItem("token") ? true : false;
+  }
+
   useEffect(() => {
-    setIsLoggedIn(localStorage.getItem("token") ? true : false);
-  }, []);
+    console.log("useEffect hit");
+    setIsLoggedIn(checkLoggedIn());
+  }, [location]);
 
   const logOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     navigate("/");
+    // setIsLoggedIn();
   };
 
   return (
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to={"/"}>
-          Dine With Your Dog
+          Pawsome Dining&#128062;
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="all_nav">

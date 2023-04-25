@@ -19,7 +19,7 @@ const RestaurantPage = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(`${API_URL}/restaurants/${id}/`);
-        console.log(data);
+        // console.log(data);
         setIsLoading(false);
         setRestaurant(data);
       } catch (err) {

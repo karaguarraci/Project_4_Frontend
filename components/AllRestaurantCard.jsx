@@ -8,6 +8,20 @@ const AllRestaurantsCard = (restaurantData) => {
   );
   console.log(restaurantInfo);
 
+  function calcAv(reviews) {
+    console.log(`This is reviews@!!!! ${reviews}`);
+    if (!reviews) {
+      return 0;
+    }
+    let totalscore = 0;
+    let totalCount = reviews.length;
+    Array.from(reviews).forEach((review) => {
+      totalscore += review.rating;
+    });
+    let avgScore = totalscore / totalCount;
+    return Math.round(avgScore * 10) / 10;
+  }
+
   return (
     restaurantInfo && (
       <li className="restaurant-card" key={restaurantInfo.id}>
@@ -16,8 +30,11 @@ const AllRestaurantsCard = (restaurantData) => {
           <Card.Body>
             <Card.Title>{restaurantInfo.name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
-              {restaurantInfo.address}
+              {calcAv(restaurantInfo.reviews)}
             </Card.Subtitle>
+            <Card.Text className="mb-2 text-muted">
+              {restaurantInfo.address}
+            </Card.Text>
             <Button
               className="restaurant-button"
               as={Link}
