@@ -1,15 +1,18 @@
-import { Carousel } from "react-bootstrap";
+import { Card, Carousel } from "react-bootstrap";
 
 const ReviewCarousel = ({ reviews }) => {
-  console.log(`here is the reviews ${reviews}`);
   return (
     <div className="review_carousel">
-      <Carousel fade>
+      <Carousel fade style={{ marginTop: "30px" }}>
         {reviews.length &&
           reviews.map((review) => (
-            <Carousel.Item key={review.id} interval={5000}>
-              <h6>{`Rating: ${review.rating}`}</h6>
-              <p>{review.comment}</p>
+            <Carousel.Item key={review.id}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>{`Rating: ${review.rating}`}</Card.Title>
+                  <Card.Text>{review.comment}</Card.Text>
+                </Card.Body>
+              </Card>
             </Carousel.Item>
           ))}
       </Carousel>

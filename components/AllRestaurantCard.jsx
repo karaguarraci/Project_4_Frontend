@@ -1,26 +1,13 @@
 import { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { calcAv } from "./AverageRating";
 
 const AllRestaurantsCard = (restaurantData) => {
   const [restaurantInfo, setRestaurantInfo] = useState(
     restaurantData ? restaurantData.restaurantData : undefined
   );
   console.log(restaurantInfo);
-
-  function calcAv(reviews) {
-    console.log(`This is reviews@!!!! ${reviews}`);
-    if (!reviews) {
-      return 0;
-    }
-    let totalscore = 0;
-    let totalCount = reviews.length;
-    Array.from(reviews).forEach((review) => {
-      totalscore += review.rating;
-    });
-    let avgScore = totalscore / totalCount;
-    return Math.round(avgScore * 10) / 10;
-  }
 
   return (
     restaurantInfo && (

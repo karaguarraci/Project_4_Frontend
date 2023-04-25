@@ -1,28 +1,59 @@
 import { useState } from "react";
-import { Card, ListGroup } from "react-bootstrap";
+import { Card, ListGroup, Button, Form } from "react-bootstrap";
 import ReviewCarousel from "./ReviewCarousel";
+import { calcAv } from "./AverageRating";
+import axios from "axios";
+import { API_URL } from "../consts.js";
 
 const RestaurantCard = ({ restaurant }) => {
   const [singleRestaurantInfo, setSingleRestaurantInfo] = useState(
     restaurant ? restaurant : undefined
   );
 
-  function calcAv(reviews) {
-    // console.log(`This is reviews@!!!! ${reviews}`);
-    if (!reviews) {
-      return 0;
-    }
-    let totalscore = 0;
-    let totalCount = reviews.length;
-    Array.from(reviews).forEach((review) => {
-      totalscore += review.rating;
-    });
-    let avgScore = totalscore / totalCount;
-    return Math.round(avgScore * 10) / 10;
-  }
+  const [showForm, setShowForm] = useState(false);
+  const initialFormData = {
+    rating: "",
+    comment: "",
+    restaurant: "",
+  };
+  const [formData, setFormData] = useState(initialFormData);
+  const [error, setError] = useState("");
 
-  // console.log(`restaurantCardInfo: ${singleRestaurantInfo}`);
-  // console.log(restaurant);
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData);
+  };
+
+  const onClick = () => {
+    setFormData(initialFormData);
+    setShowForm(true);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
+      console.log(token);
+      const restaurantId = singleRestaurantInfo.id;
+      const addedReview = await axios.post(
+        `${API_URL}/reviews/`,
+        { ...formData, restaurant: restaurantId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(addedReview);
+      if (addedReview) {
+        setShowForm(false);
+      }
+    } catch (err) {
+      console.log("post not worked");
+      console.log(err);
+    }
+  };
+
   return (
     singleRestaurantInfo && (
       <div className="restaurant-card">
@@ -43,8 +74,51 @@ const RestaurantCard = ({ restaurant }) => {
               {singleRestaurantInfo.website}
             </Card.Link>
           </Card.Body>
+          <Card.Body>
+            {showForm ? (
+              <Form onSubmit={onSubmit}>
+                <Form.Group controlId="rating">
+                  <Form.Label>Rating</Form.Label>
+                  <Form.Control
+                    type="number"
+                    min={1}
+                    max={5}
+                    name="rating"
+                    value={formData.rating}
+                    onChange={onChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="comment">
+                  <Form.Label>Comment</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    name="comment"
+                    value={formData.comment}
+                    onChange={onChange}
+                    required
+                  />
+                </Form.Group>
+                <Button type="submit">Submit</Button>
+                {error && <p className="text-danger">{error}</p>}
+              </Form>
+            ) : (
+              <Button
+                onClick={onClick}
+                variant="primary"
+                className="cardbutton"
+              >
+                Add Review
+              </Button>
+            )}
+          </Card.Body>
         </Card>
-        <ReviewCarousel reviews={singleRestaurantInfo.reviews} />
+
+        <ReviewCarousel
+          reviews={singleRestaurantInfo.reviews}
+          restaurant={singleRestaurantInfo}
+        />
       </div>
     )
   );
