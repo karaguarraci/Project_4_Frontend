@@ -7,6 +7,7 @@ import AllRestaurants from "../pages/AllRestaurants";
 import Locations from "../pages/Locations";
 import RestaurantPage from "../pages/RestaurantPage";
 import { Routes, Route } from "react-router-dom";
+import City from "../components/City";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/allrestaurants" element={<AllRestaurants />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/restaurants/:id" element={<RestaurantPage />} />
+        <Route path="/city/:city" element={<City />} />
       </Routes>
     </div>
   );
