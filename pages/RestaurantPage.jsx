@@ -39,7 +39,6 @@ const RestaurantPage = () => {
       ) : (
         <div className="restaurant_card">
           <RestaurantCard restaurant={restaurant} />
-          {/* <ReviewsCarousel reviews={reviews} /> */}
         </div>
       )}
     </div>
