@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, ListGroup, Button, Form } from "react-bootstrap";
-import ReviewCarousel from "./ReviewCarousel";
+import Reviews from "./Reviews";
 import { calcAv } from "./AverageRating";
 import axios from "axios";
 import { API_URL } from "../consts.js";
@@ -131,7 +131,7 @@ const RestaurantCard = ({ restaurant }) => {
             </Card.Body>
           </Card>
 
-          <ReviewCarousel
+          <Reviews
             reviews={singleRestaurantInfo.reviews}
             restaurant={singleRestaurantInfo}
           />

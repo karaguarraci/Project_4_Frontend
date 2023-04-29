@@ -94,7 +94,11 @@ const Register = () => {
           <p onClick={() => navigate("/login")}>Already have an account? </p>
         </Form>
 
-        <Errors showError={showError} errorMessage={errorMessage} />
+        <Errors
+          showError={showError}
+          errorMessage={errorMessage}
+          setShowError={setShowError}
+        />
       </Container>
     </div>
   );

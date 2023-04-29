@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../consts";
 import SearchBar from "../components/SearchBar";
 import { useNavigate } from "react-router-dom";
+import home_background_image from "../assets/Pups.jpg";
 
 const Home = () => {
   const [restaurantCardData, setrestaurantCardData] = useState();
@@ -34,8 +35,17 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <SearchBar onSearch={onSearch} />
+    <div className="home-page">
+      <div className="background_images">
+        <img
+          src={home_background_image}
+          alt="Background image"
+          className="form_background_image"
+        />
+      </div>
+      <div className="main-searchbar">
+        <SearchBar className="searchbar-home" onSearch={onSearch} />
+      </div>
     </div>
   );
 };

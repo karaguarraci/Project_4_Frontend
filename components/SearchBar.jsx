@@ -7,14 +7,13 @@ const SearchBar = ({ onSearch }) => {
         <Col sm={4}>
           <Form className="d-flex">
             <Form.Control
-              // value={search}
               type="search"
               placeholder="Search for a city..."
               className="me-2"
               onChange={onSearch}
               name="city"
             />
-            <Button>Search</Button>
+            <Button className="button">Search</Button>
           </Form>
         </Col>
       </Row>

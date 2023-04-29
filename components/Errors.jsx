@@ -1,4 +1,4 @@
-const Errors = ({ showError, errorMessage }) => {
+const Errors = ({ showError, errorMessage, setShowError }) => {
   return (
     <div>
       {showError && (

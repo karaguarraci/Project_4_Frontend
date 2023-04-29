@@ -40,8 +40,12 @@ const Header = () => {
             >
               All Restaurants
             </Nav.Link>
-            <Nav.Link as={Link} to={"/locations"} onClick="hide.bs.dropdown">
-              Locations
+            <Nav.Link
+              as={Link}
+              to={"/addrestaurant"}
+              onClick="hide.bs.dropdown"
+            >
+              Add Restaurant
             </Nav.Link>
           </Nav>
           <Nav className="login_nav">
