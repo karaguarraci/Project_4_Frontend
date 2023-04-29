@@ -2,10 +2,17 @@ import { useState } from "react";
 import { API_URL } from "../consts";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
+import jwt_decode from "jwt-decode";
 
 const ReviewsCard = ({ review }) => {
   const [showEditForm, setShowEditForm] = useState();
   const [error, setError] = useState("");
+  // const loggedInUser = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+  const decodedToken = jwt_decode(token);
+  const loggedInUser = decodedToken;
+  //   console.log(`this is the user: ${loggedInUser}`);
+  console.log(`Decoded token: ${JSON.stringify(decodedToken)}`);
 
   console.log(`this is the reviews on the review page: ${review}`);
 
@@ -75,45 +82,47 @@ const ReviewsCard = ({ review }) => {
     <div>
       <h6>{`Rating: ${review.rating}`}</h6>
       <p>{review.comment}</p>
-      {showEditForm ? (
-        <Form onSubmit={onSubmit}>
-          <Form.Group controlId="rating">
-            <Form.Label>Rating</Form.Label>
-            <Form.Control
-              type="number"
-              min={1}
-              max={5}
-              name="rating"
-              value={formData.rating}
-              onChange={onChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group controlId="comment">
-            <Form.Label>Comment</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              name="comment"
-              value={formData.comment}
-              onChange={onChange}
-              required
-            />
-          </Form.Group>
-          <Button type="submit">Submit</Button>
-          {error && <p className="text-danger">{error}</p>}
-        </Form>
-      ) : (
-        <div>
-          <Button onClick={onClick} variant="primary" className="cardbutton">
-            Update Review
-          </Button>
+      {loggedInUser && loggedInUser.sub === review.owner ? (
+        showEditForm ? (
+          <Form onSubmit={onSubmit}>
+            <Form.Group controlId="rating">
+              <Form.Label>Rating</Form.Label>
+              <Form.Control
+                type="number"
+                min={1}
+                max={5}
+                name="rating"
+                value={formData.rating}
+                onChange={onChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="comment">
+              <Form.Label>Comment</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="comment"
+                value={formData.comment}
+                onChange={onChange}
+                required
+              />
+            </Form.Group>
+            <Button type="submit">Submit</Button>
+            {error && <p className="text-danger">{error}</p>}
+          </Form>
+        ) : (
+          <div>
+            <Button onClick={onClick} variant="primary" className="cardbutton">
+              Update Review
+            </Button>
 
-          <Button onClick={onDelete} variant="primary" className="cardbutton">
-            Delete Review
-          </Button>
-        </div>
-      )}
+            <Button onClick={onDelete} variant="primary" className="cardbutton">
+              Delete Review
+            </Button>
+          </div>
+        )
+      ) : null}
     </div>
   );
 };
