@@ -7,20 +7,15 @@ import jwt_decode from "jwt-decode";
 const ReviewsCard = ({ review }) => {
   const [showEditForm, setShowEditForm] = useState();
   const [error, setError] = useState("");
-  // const loggedInUser = JSON.parse(localStorage.getItem("user"));
+
   const token = localStorage.getItem("token");
   const decodedToken = jwt_decode(token);
   const loggedInUser = decodedToken;
-  //   console.log(`this is the user: ${loggedInUser}`);
-  console.log(`Decoded token: ${JSON.stringify(decodedToken)}`);
-
-  console.log(`this is the reviews on the review page: ${review}`);
 
   const initialFormData = {
     rating: review.rating,
     comment: review.comment,
     restaurant: review.restaurant,
-    // createdAt: review.created_at,
   };
 
   const [formData, setFormData] = useState(initialFormData);

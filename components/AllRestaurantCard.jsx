@@ -2,12 +2,38 @@ import { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { calcAv } from "./AverageRating";
+import Heart from "react-heart";
+import axios from "axios";
+import { API_URL } from "../consts.js";
+import jwt_decode from "jwt-decode";
 
 const AllRestaurantsCard = (restaurantData) => {
   const [restaurantInfo, setRestaurantInfo] = useState(
     restaurantData ? restaurantData.restaurantData : undefined
   );
   console.log(restaurantInfo);
+  const [active, setActive] = useState(false);
+
+  const addToFavourite = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const decodedToken = jwt_decode(token);
+      const userId = decodedToken.sub;
+      const restaurant = restaurantInfo.id;
+      const favouriteRestaurant = await axios.post(
+        `${API_URL}/favourites/`,
+        { restaurant: restaurant, owner: userId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(favouriteRestaurant);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     restaurantInfo && (
@@ -15,9 +41,22 @@ const AllRestaurantsCard = (restaurantData) => {
         <Card style={{ width: "20rem" }}>
           <Card.Img variant="top" src={restaurantInfo.image} />
           <Card.Body>
-            <Card.Title>{restaurantInfo.name}</Card.Title>
+            <Card.Title>
+              <div style={{ width: "2rem" }}>
+                <Heart
+                  isActive={active}
+                  onClick={() => {
+                    setActive(!active);
+                    addToFavourite();
+                  }}
+                />
+              </div>
+              {restaurantInfo.name}
+            </Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
-              {calcAv(restaurantInfo.reviews)}
+              {restaurantInfo.reviews.length > 0
+                ? calcAv(restaurantInfo.reviews)
+                : "No reviews yet"}
             </Card.Subtitle>
             <Card.Text className="mb-2 text-muted">
               {restaurantInfo.address}

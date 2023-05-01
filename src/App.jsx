@@ -8,6 +8,8 @@ import AddRestaurant from "../pages/AddRestaurant";
 import RestaurantPage from "../pages/RestaurantPage";
 import { Routes, Route } from "react-router-dom";
 import City from "../components/City";
+import FavouritesPage from "../pages/FavouritesPage";
+// import AddDogInfo from "../pages/AddDogInfo";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/addrestaurant" element={<AddRestaurant />} />
         <Route path="/restaurants/:id" element={<RestaurantPage />} />
         <Route path="/city/:city" element={<City />} />
+        <Route path="/myfavourites" element={<FavouritesPage />} />
+        {/* <Route path="adddoginfo" element={<AddDogInfo />} /> */}
       </Routes>
     </div>
   );

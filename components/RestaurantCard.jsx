@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, ListGroup, Button, Form } from "react-bootstrap";
+import { Card, ListGroup, Button, Form, Container } from "react-bootstrap";
 import Reviews from "./Reviews";
 import { calcAv } from "./AverageRating";
 import axios from "axios";
@@ -18,6 +18,59 @@ const RestaurantCard = ({ restaurant }) => {
   };
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState("");
+  const [dogInfoFormData, setDogInfoFormData] = useState({
+    provides_water_bowls: false,
+    provides_treats: false,
+    has_doggy_menu: false,
+    extras: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showDogInfoForm, setShowDogInfoForm] = useState();
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setDogInfoFormData({
+      ...dogInfoFormData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(`This is the form data ${JSON.stringify(dogInfoFormData)}`);
+    try {
+      const token = localStorage.getItem("token");
+      const restaurant = singleRestaurantInfo.id;
+      await axios.post(
+        `${API_URL}/dog_friendly/`,
+        { ...dogInfoFormData, restaurant: restaurant },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(dogInfoFormData);
+
+      setShowDogInfoForm(false);
+    } catch (e) {
+      console.log(e);
+      // console.log(JSON.parse(e.request.response));
+      // setShowError(true);
+      // console.log(Object.entries(JSON.parse(e.request.response)));
+      // setErrorMessage(Object.entries(JSON.parse(e.request.response)));
+      setErrorMessage("Somthing went wrong");
+      console.log(e);
+    }
+  };
+
+  const handleClick = (e) => {
+    setDogInfoFormData({ ...dogInfoFormData, [e.target.name]: e.target.value });
+    console.log(dogInfoFormData);
+    setShowDogInfoForm(true);
+  };
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -63,25 +116,94 @@ const RestaurantCard = ({ restaurant }) => {
             <Card.Body>
               <Card.Title>{singleRestaurantInfo.name}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                {calcAv(singleRestaurantInfo.reviews)}
+                {/* {calcAv(singleRestaurantInfo.reviews)} */}
+                {singleRestaurantInfo.reviews.length > 0
+                  ? calcAv(singleRestaurantInfo.reviews)
+                  : "No reviews yet"}
               </Card.Subtitle>
               <Card.Text>{singleRestaurantInfo.description}</Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
               <ListGroup.Item>
-                {singleRestaurantInfo.dog_friendly.provides_water_bowls
-                  ? "Water bowls: Yes"
-                  : "Water bowls: No"}{" "}
-                <br />
-                {singleRestaurantInfo.dog_friendly.provides_treats
-                  ? "Treats: Yes"
-                  : "Treats: No"}
-                <br />
-                {singleRestaurantInfo.dog_friendly.has_doggy_menu
-                  ? "Doggy menu: Yes"
-                  : "Doggy menu: No"}
-                <br />
-                Doggy extras: {singleRestaurantInfo.dog_friendly.extras}
+                {showDogInfoForm ? (
+                  <Container className="form_container">
+                    <Form className="sl_form" onSubmit={handleSubmit}>
+                      <h3 className="form_header">Dog Friendly Info</h3>
+                      <Form.Group controlId="provides_water_bowls">
+                        <Form.Check
+                          type="checkbox"
+                          label="Provides water bowls"
+                          name="provides_water_bowls"
+                          checked={dogInfoFormData.provides_water_bowls}
+                          onChange={handleChange}
+                        />
+
+                        <Form.Group controlId="provides_treats">
+                          <Form.Check
+                            type="checkbox"
+                            label="Provides treats"
+                            name="provides_treats"
+                            checked={dogInfoFormData.provides_treats}
+                            onChange={handleChange}
+                          />
+                        </Form.Group>
+                        <Form.Group controlId="has_doggy_menu">
+                          <Form.Check
+                            type="checkbox"
+                            label="Doggy Menu"
+                            name="has_doggy_menu"
+                            checked={dogInfoFormData.has_doggy_menu}
+                            onChange={handleChange}
+                          />
+                        </Form.Group>
+                        <Form.Group controlId="extras">
+                          <Form.Control
+                            className="input_text"
+                            type="text"
+                            value={dogInfoFormData.extras}
+                            placeholder="Doggy extras"
+                            name="extras"
+                            onChange={handleChange}
+                          ></Form.Control>
+                        </Form.Group>
+                      </Form.Group>
+                      <Button
+                        variant="primary"
+                        type="submit"
+                        onSubmit={handleSubmit}
+                      >
+                        Add
+                      </Button>
+                    </Form>
+                  </Container>
+                ) : singleRestaurantInfo.dog_friendly ? (
+                  <div>
+                    {singleRestaurantInfo.dog_friendly.provides_water_bowls
+                      ? "Water bowls: Yes"
+                      : "Water bowls: No"}{" "}
+                    <br />
+                    {singleRestaurantInfo.dog_friendly.provides_treats
+                      ? "Treats: Yes"
+                      : "Treats: No"}
+                    <br />
+                    {singleRestaurantInfo.dog_friendly.has_doggy_menu
+                      ? "Doggy menu: Yes"
+                      : "Doggy menu: No"}
+                    <br />
+                    Doggy extras: {singleRestaurantInfo.dog_friendly.extras}
+                  </div>
+                ) : (
+                  <div>
+                    <p>Add dog friendly extras?</p>
+                    <Button
+                      variant="primary"
+                      className="cardbutton"
+                      onClick={handleClick}
+                    >
+                      Add
+                    </Button>
+                  </div>
+                )}
               </ListGroup.Item>
               <ListGroup.Item>{singleRestaurantInfo.address}</ListGroup.Item>
             </ListGroup>
