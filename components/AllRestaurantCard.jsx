@@ -6,6 +6,7 @@ import Heart from "react-heart";
 import axios from "axios";
 import { API_URL } from "../consts.js";
 import jwt_decode from "jwt-decode";
+import ReactStars from "react-rating-stars-component";
 
 const AllRestaurantsCard = (restaurantData) => {
   const [restaurantInfo, setRestaurantInfo] = useState(
@@ -53,13 +54,26 @@ const AllRestaurantsCard = (restaurantData) => {
               </div>
               {restaurantInfo.name}
             </Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">
-              {restaurantInfo.reviews.length > 0
-                ? calcAv(restaurantInfo.reviews)
-                : "No reviews yet"}
+            <Card.Subtitle
+              className="mb-2 text-muted"
+              style={{ margin: "auto" }}
+            >
+              {restaurantInfo.reviews.length > 0 ? (
+                <ReactStars
+                  classname="rating-stars"
+                  count={5}
+                  value={calcAv(restaurantInfo.reviews)}
+                  size={24}
+                  edit={false}
+                  isHalf={true}
+                  activeColor="#ffd700"
+                />
+              ) : (
+                "No reviews yet"
+              )}
             </Card.Subtitle>
-            <Card.Text className="mb-2 text-muted">
-              {restaurantInfo.address}
+            <Card.Text className="mb-2 text-muted" style={{ margin: "auto" }}>
+              {restaurantInfo.city}
             </Card.Text>
             <Button
               className="restaurant-button"

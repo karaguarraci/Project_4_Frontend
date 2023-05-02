@@ -3,6 +3,7 @@ import { API_URL } from "../consts";
 import { useState, useEffect } from "react";
 import AllRestaurantsCard from "../components/AllRestaurantCard";
 import LoadingVisual from "../components/LoadingVisual";
+import { Fragment } from "react";
 
 const AllRestaurants = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
@@ -33,9 +34,9 @@ const AllRestaurants = () => {
       ) : (
         <div className="restaurant-cards">
           {allRestaurants.map((restaurant) => (
-            <div key={restaurant.id}>
+            <Fragment key={restaurant.id}>
               <AllRestaurantsCard restaurantData={restaurant} />
-            </div>
+            </Fragment>
           ))}
         </div>
       )}

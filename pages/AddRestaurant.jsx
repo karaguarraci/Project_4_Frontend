@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_URL } from "../consts.js";
 import { Form, Button, Container } from "react-bootstrap";
 import Errors from "../components/Errors.jsx";
-import addRestaurant_background_image from "../assets/SharPeiDog.jpg";
+import addRestaurant_background_image from "../assets/Dog1.jpg";
 import { useNavigate } from "react-router-dom";
 
 const AddRestaurant = () => {

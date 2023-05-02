@@ -3,6 +3,7 @@ import { API_URL } from "../consts";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import jwt_decode from "jwt-decode";
+import ReactStars from "react-rating-stars-component";
 
 const ReviewsCard = ({ review }) => {
   const [showEditForm, setShowEditForm] = useState();
@@ -35,9 +36,9 @@ const ReviewsCard = ({ review }) => {
     try {
       const token = localStorage.getItem("token");
       const reviewId = review.id;
-      const restaurantId = review.restaurant;
-      console.log(`this is the review id: ${reviewId}`);
-      console.log(`restaurant id: ${restaurantId}`);
+      // const restaurantId = review.restaurant;
+      // console.log(`this is the review id: ${reviewId}`);
+      // console.log(`restaurant id: ${restaurantId}`);
       const updatedReview = await axios.put(
         `${API_URL}/reviews/${reviewId}/`,
         { ...formData },
@@ -55,7 +56,7 @@ const ReviewsCard = ({ review }) => {
   };
 
   const onDelete = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
       const token = localStorage.getItem("token");
       const reviewId = review.id;
@@ -75,7 +76,17 @@ const ReviewsCard = ({ review }) => {
 
   return (
     <div>
-      <h6>{`Rating: ${review.rating}`}</h6>
+      {
+        <ReactStars
+          className="rating-stars"
+          count={5}
+          value={review.rating}
+          size={24}
+          edit={false}
+          isHalf={true}
+          activeColor="#ffd700"
+        />
+      }
       <p>{review.comment}</p>
       {loggedInUser && loggedInUser.sub === review.owner ? (
         showEditForm ? (
@@ -91,6 +102,15 @@ const ReviewsCard = ({ review }) => {
                 onChange={onChange}
                 required
               />
+              {/* <ReactStars
+                className="rating-stars"
+                count={5}
+                onChange={onChange}
+                size={24}
+                edit={false}
+                isHalf={true}
+                activeColor="#ffd700"
+              /> */}
             </Form.Group>
             <Form.Group controlId="comment">
               <Form.Label>Comment</Form.Label>

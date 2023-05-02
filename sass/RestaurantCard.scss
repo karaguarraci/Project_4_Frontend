@@ -2,13 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   justify-content: space-between;
 
   .card {
     border: none;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease-in-out;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 
     &:hover {
       transform: scale(1.05);
@@ -16,7 +17,7 @@
     }
 
     .card-img-top {
-      height: 250px;
+      // height: 250px;
       object-fit: cover;
     }
 
@@ -77,6 +78,26 @@
       }
     }
   }
+}
+
+.restaurant-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 50px;
+}
+
+.review-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 50px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .review_boxes {

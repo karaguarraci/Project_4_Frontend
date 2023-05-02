@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Card, ListGroup, Button, Form, Container } from "react-bootstrap";
-import Reviews from "./Reviews";
 import { calcAv } from "./AverageRating";
 import axios from "axios";
 import { API_URL } from "../consts.js";
+import ReactStars from "react-rating-stars-component";
 
 const RestaurantCard = ({ restaurant }) => {
   const [singleRestaurantInfo, setSingleRestaurantInfo] = useState(
@@ -83,7 +83,7 @@ const RestaurantCard = ({ restaurant }) => {
   };
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
       const token = localStorage.getItem("token");
       console.log(token);
@@ -109,17 +109,29 @@ const RestaurantCard = ({ restaurant }) => {
 
   return (
     singleRestaurantInfo && (
-      <div className="restaurant-card-container">
+      <div>
         <div className="restaurant-card">
           <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src={singleRestaurantInfo.image} />
             <Card.Body>
               <Card.Title>{singleRestaurantInfo.name}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                {/* {calcAv(singleRestaurantInfo.reviews)} */}
-                {singleRestaurantInfo.reviews.length > 0
-                  ? calcAv(singleRestaurantInfo.reviews)
-                  : "No reviews yet"}
+              <Card.Subtitle
+                className="mb-2 text-muted"
+                style={{ margin: "auto" }}
+              >
+                {singleRestaurantInfo.reviews.length > 0 ? (
+                  <ReactStars
+                    className="rating-stars"
+                    count={5}
+                    value={calcAv(singleRestaurantInfo.reviews)}
+                    size={24}
+                    edit={false}
+                    isHalf={true}
+                    activeColor="#ffd700"
+                  />
+                ) : (
+                  "No reviews yet"
+                )}
               </Card.Subtitle>
               <Card.Text>{singleRestaurantInfo.description}</Card.Text>
             </Card.Body>
@@ -252,11 +264,6 @@ const RestaurantCard = ({ restaurant }) => {
               )}
             </Card.Body>
           </Card>
-
-          <Reviews
-            reviews={singleRestaurantInfo.reviews}
-            restaurant={singleRestaurantInfo}
-          />
         </div>
       </div>
     )

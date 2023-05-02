@@ -4,7 +4,7 @@ const SearchBar = ({ onSearch }) => {
   return (
     <Container className="mt-5" onSubmit={onSearch}>
       <Row>
-        <Col sm={4}>
+        <Col sm={4} style={{ width: "100%" }}>
           <Form className="d-flex">
             <Form.Control
               type="search"

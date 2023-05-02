@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../consts.js";
 import RestaurantCard from "../components/RestaurantCard.jsx";
 import LoadingVisual from "../components/LoadingVisual.jsx";
+import Reviews from "../components/Reviews.jsx";
 
 const RestaurantPage = () => {
   const { id } = useParams();
@@ -37,8 +38,13 @@ const RestaurantPage = () => {
       {isLoading ? (
         <LoadingVisual />
       ) : (
-        <div className="restaurant_card">
-          <RestaurantCard restaurant={restaurant} />
+        <div className="restaurant-container">
+          <div className="restaurant_card">
+            <RestaurantCard restaurant={restaurant} />
+          </div>
+          <div className="reviews-section">
+            <Reviews reviews={restaurant.reviews} restaurant={restaurant} />
+          </div>
         </div>
       )}
     </div>
