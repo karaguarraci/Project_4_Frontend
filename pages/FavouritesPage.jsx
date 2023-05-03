@@ -21,6 +21,7 @@ const FavouritesPage = () => {
         });
         setIsLoading(false);
         setFavourites(data);
+        console.log(`this is the favourites data ${data}`);
       } catch (err) {
         console.log(err);
         setShowError(true);
@@ -39,7 +40,7 @@ const FavouritesPage = () => {
         <div className="restaurant-cards">
           {favourites.map((favourite) => (
             <div key={favourite.id}>
-              <AllRestaurantsCard restaurantData={favourites} />
+              <AllRestaurantsCard restaurantData={favourite.restaurant} />
             </div>
           ))}
         </div>

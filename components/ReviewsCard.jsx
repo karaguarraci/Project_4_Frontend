@@ -68,6 +68,7 @@ const ReviewsCard = ({ review }) => {
           },
         }
       );
+      window.location.reload();
       console.log(reviewToDelete);
     } catch (err) {
       console.log(err);

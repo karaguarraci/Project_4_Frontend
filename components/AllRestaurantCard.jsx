@@ -21,6 +21,7 @@ const AllRestaurantsCard = (restaurantData) => {
       const decodedToken = jwt_decode(token);
       const userId = decodedToken.sub;
       const restaurant = restaurantInfo.id;
+      console.log(userId, restaurant);
       const favouriteRestaurant = await axios.post(
         `${API_URL}/favourites/`,
         { restaurant: restaurant, owner: userId },
@@ -30,7 +31,7 @@ const AllRestaurantsCard = (restaurantData) => {
           },
         }
       );
-      console.log(favouriteRestaurant);
+      console.log(`this is the favourited restaurant ${favouriteRestaurant}`);
     } catch (err) {
       console.log(err);
     }
@@ -58,7 +59,7 @@ const AllRestaurantsCard = (restaurantData) => {
               className="mb-2 text-muted"
               style={{ margin: "auto" }}
             >
-              {restaurantInfo.reviews.length > 0 ? (
+              {restaurantInfo.reviews && restaurantInfo.reviews.length > 0 ? (
                 <ReactStars
                   classname="rating-stars"
                   count={5}
