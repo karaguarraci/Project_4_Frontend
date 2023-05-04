@@ -21,10 +21,12 @@ const AllRestaurantsCard = (restaurantData) => {
       const decodedToken = jwt_decode(token);
       const userId = decodedToken.sub;
       const restaurant = restaurantInfo.id;
-      console.log(userId, restaurant);
+      const reviews = restaurantInfo.reviews.id;
+
+      console.log(userId, restaurant, reviews);
       const favouriteRestaurant = await axios.post(
         `${API_URL}/favourites/`,
-        { restaurant: restaurant, owner: userId },
+        { restaurant: restaurant, owner: userId, reviews: reviews },
         {
           headers: {
             Authorization: `Bearer ${token}`,

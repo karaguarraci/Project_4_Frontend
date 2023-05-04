@@ -32,7 +32,7 @@ const ReviewsCard = ({ review }) => {
   };
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
       const token = localStorage.getItem("token");
       const reviewId = review.id;

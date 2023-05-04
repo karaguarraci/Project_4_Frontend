@@ -220,7 +220,7 @@ const RestaurantCard = ({ restaurant }) => {
               <ListGroup.Item>{singleRestaurantInfo.address}</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-              <Card.Link href={singleRestaurantInfo.website}>
+              <Card.Link href={singleRestaurantInfo.website} target="_blank">
                 {singleRestaurantInfo.website}
               </Card.Link>
             </Card.Body>

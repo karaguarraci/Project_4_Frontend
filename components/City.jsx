@@ -7,9 +7,11 @@ const City = () => {
 
   return (
     <div>
-      {state.map((restaurant) => (
-        <AllRestaurantsCard key={restaurant.id} restaurantData={restaurant} />
-      ))}
+      <div className="city-card">
+        {state.map((restaurant) => (
+          <AllRestaurantsCard key={restaurant.id} restaurantData={restaurant} />
+        ))}
+      </div>
     </div>
   );
 };

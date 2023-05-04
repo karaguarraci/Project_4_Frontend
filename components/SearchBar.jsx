@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch }) => {
               onChange={onSearch}
               name="city"
             />
-            <Button className="button">Search</Button>
+            <Button className="button search-button">Search</Button>
           </Form>
         </Col>
       </Row>
