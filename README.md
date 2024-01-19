@@ -51,7 +51,7 @@ At the start of the project, I used Excalidraw to create a plan for the layout a
 
 <img src="https://github.com/karaguarraci/Project_4_Frontend/assets/115991254/13049926-1cae-4a85-a647-6f071aef531f" alt="project wireframe" width="500">
 
-##Build/Code Process
+## Build/Code Process
 ### Creating the Backend
 During the backend development phase of my project, I focused on creating four separate apps: "restaurants," "dog_friendly," "jwt_auth," and "reviews." I planned out the initial data fields required for each model.
 In the "restaurants" model, I included fields such as "name," "address," "website," and "location" (later refined to "city"). To handle dog-friendliness, I decided to incorporate a Boolean field directly in the "restaurants" model and use the "dog_friendly" model to store additional amenities, such as: “provides_treats”, “has_doggy_menu”.
