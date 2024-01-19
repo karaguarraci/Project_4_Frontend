@@ -297,7 +297,7 @@ const City = () => {
 ```
 ## Wins
 
-- I'm really pleased with how my project turned out, especially when it comes to making it mobile responsive. In the past, I struggled with implementing responsiveness in my projects, but this time I was able to overcome those challenges. Bootstrap played a significant role in achieving this, as its responsive grid system and pre-built components made it much easier for me to create a responsive layout.
+- I'm really pleased with how my project turned out, especially when it comes to making it mobile responsive. In the past, I struggled with implementing responsiveness in my projects, but this time I was able to overcome some of those challenges. Bootstrap played a significant role in achieving this, as its responsive grid system and pre-built components made it much easier for me to create a responsive layout.
 - I am extremely proud of my accomplishment in building a full-stack application as a solo project within a three-week timeframe. It was challenging and required a combination of technical skills, problem-solving abilities, and efficient time management.
 
 ## Key Learnings
@@ -311,4 +311,5 @@ const City = () => {
 ## Future Improvements
 - Ability for users to update and delete the restaurants they have added.
 - Enhance the favourites page to display filled heart icons for favourite restaurants.
-- Implement the ability to remove a restaurant from the favourites list by clicking on the filled heart. 
+- Implement the ability to remove a restaurant from the favourites list by clicking on the filled heart.
+- Further improving the design and mobile responsiveness, for example on the 'restaurant page'. 
