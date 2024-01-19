@@ -306,8 +306,7 @@ const City = () => {
 
 ## Known Bugs
 - I encountered a challenge while adding restaurants to the favourites page. After adding a restaurant, I noticed that it no longer had any reviews associated with it. This issue was not limited to the frontend, as I confirmed it while testing the backend using Postman. Despite my efforts, I couldn't determine the exact cause of this problem. As a result, the added restaurants on the favourites page were missing their reviews. I tried to investigate the issue further, but I have so far been unable to identify the specific issue in the backend code that caused the reviews to be omitted.
-- When attempting to register, there is an error message stating that the "favourites" field is required. Unfortunately, I haven't been able to find a solution to fix this issue yet.
-
+- When attempting to register, there is an error message stating that the "favourites" field is required. Unfortunately, I was not able to find a solution to this within the timeframe of the project, but it is something I would like to address in the future.
 ## Future Improvements
 - Ability for users to update and delete the restaurants they have added.
 - Enhance the favourites page to display filled heart icons for favourite restaurants.
